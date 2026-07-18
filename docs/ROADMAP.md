@@ -19,41 +19,41 @@
 
 | 候选能力 | 用户价值 | 成本 | 隐私风险 |
 | --- | --- | --- | --- |
-| 增量同步与新增/变更报告 | 不必反复全量检查 | 中 | 低 |
+| [增量同步与新增/变更报告](https://github.com/GongziTANG/mpvault/issues/1) | 不必反复全量检查 | 中 | 低 |
 | 定时备份与失败通知 | 真正做到无人值守 | 中 | 中 |
-| 多公众号工作区 | 统一管理研究来源 | 中 | 低 |
-| 标题/作者/日期/原创/合集筛选 | 只拿需要的内容 | 低 | 低 |
+| [多公众号工作区](https://github.com/GongziTANG/mpvault/issues/3) | 统一管理研究来源 | 中 | 低 |
+| [标题/作者/日期/原创/合集筛选](https://github.com/GongziTANG/mpvault/issues/3) | 只拿需要的内容 | 低 | 低 |
 
 ## Preserve：保存得更完整、更省空间
 
 | 候选能力 | 用户价值 | 成本 | 隐私风险 |
 | --- | --- | --- | --- |
-| HTML 原排版归档 | 保留视觉与复杂互动内容 | 中 | 低 |
-| 视频、音频和附件本地化 | 不只保存图文 | 高 | 低 |
-| 图片内容哈希去重 | 大型档案显著瘦身 | 中 | 低 |
+| [HTML 原排版归档](https://github.com/GongziTANG/mpvault/issues/2) | 保留视觉与复杂互动内容 | 中 | 低 |
+| [视频、音频和附件本地化](https://github.com/GongziTANG/mpvault/issues/4) | 不只保存图文 | 高 | 低 |
+| [图片内容哈希去重](https://github.com/GongziTANG/mpvault/issues/4) | 大型档案显著瘦身 | 中 | 低 |
 | 完整性快照与变更检测 | 发现本地文件损坏或被改动 | 中 | 低 |
 
 ## Find：从“有文件”到“找得到”
 
 | 候选能力 | 用户价值 | 成本 | 隐私风险 |
 | --- | --- | --- | --- |
-| 本地阅读与搜索界面 | 非技术用户也能浏览 | 中 | 低 |
-| 选择性 OCR | 找到只写在图片里的信息 | 中 | 中，取决于 provider |
-| 语义搜索 | 不记得原词也能找到文章 | 中 | 中 |
-| 带原文引用的 AI 问答 | 从档案直接得到可追溯答案 | 高 | 中 |
+| [本地阅读与搜索界面](https://github.com/GongziTANG/mpvault/issues/8) | 非技术用户也能浏览 | 中 | 低 |
+| [选择性 OCR](https://github.com/GongziTANG/mpvault/issues/6) | 找到只写在图片里的信息 | 中 | 中，取决于 provider |
+| [语义搜索](https://github.com/GongziTANG/mpvault/issues/7) | 不记得原词也能找到文章 | 中 | 中 |
+| [带原文引用的 AI 问答](https://github.com/GongziTANG/mpvault/issues/7) | 从档案直接得到可追溯答案 | 高 | 中 |
 
 ## Use：让内容进入下一条工作流
 
 | 候选能力 | 用户价值 | 成本 | 隐私风险 |
 | --- | --- | --- | --- |
-| JSON / Excel / TXT | 分析和迁移更容易 | 低 | 低 |
-| Docx / PDF | 分享与打印 | 中 | 低 |
-| Obsidian MOC、标签和双链 | 直接融入个人知识库 | 中 | 低 |
-| RSS 与只读 API | 接入自动化和其他应用 | 中 | 中 |
+| [JSON / Excel / TXT](https://github.com/GongziTANG/mpvault/issues/2) | 分析和迁移更容易 | 低 | 低 |
+| [Docx / PDF](https://github.com/GongziTANG/mpvault/issues/2) | 分享与打印 | 中 | 低 |
+| [Obsidian MOC、标签和双链](https://github.com/GongziTANG/mpvault/issues/5) | 直接融入个人知识库 | 中 | 低 |
+| [RSS 与只读 API](https://github.com/GongziTANG/mpvault/issues/1) | 接入自动化和其他应用 | 中 | 中 |
 
 ## Understand：在安全边界内理解传播
 
-阅读、点赞、转发、评论与回复需要独立的短期 credentials。它们有真实价值，但敏感度和失效速度都高于正文，因此必须满足以下条件才会实现：
+[阅读、点赞、转发、评论与回复](https://github.com/GongziTANG/mpvault/issues/9)需要独立的短期 credentials。它们有真实价值，但敏感度和失效速度都高于正文，因此必须满足以下条件才会实现：
 
 - 与正文登录会话分开保存。
 - 默认不采集、不打印、不进入 manifest。
