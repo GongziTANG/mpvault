@@ -1,0 +1,6 @@
+node_modules/
+.wechat-session/
+exports/
+*.log
+.DS_Store
+coverage/

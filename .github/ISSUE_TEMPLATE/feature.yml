@@ -1,0 +1,37 @@
+name: Feature request
+description: 描述你想完成的任务，帮助 MPVault 排好下一步
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解决什么问题？
+      description: 请描述场景，而不只是功能名称。
+      placeholder: 当我……时，我希望……，这样我可以……
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: 现在怎么处理？
+      description: 当前替代方案、频率和最痛的地方是什么？
+    validations:
+      required: true
+  - type: dropdown
+    id: privacy
+    attributes:
+      label: 是否涉及敏感数据？
+      options:
+        - 不涉及
+        - 可能涉及本地文章或图片
+        - 涉及登录凭据或账号数据
+        - 不确定
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 什么结果算成功？
+    validations:
+      required: true

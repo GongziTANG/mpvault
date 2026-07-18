@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">MPVault</title>
+  <desc id="desc">Turn public accounts into your local knowledge vault</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a17"/>
+      <stop offset="1" stop-color="#123d31"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2bd576"/>
+      <stop offset="1" stop-color="#8ef0b9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="32" fill="url(#bg)"/>
+  <circle cx="1048" cy="58" r="150" fill="#2bd576" opacity=".08"/>
+  <circle cx="1130" cy="310" r="205" fill="#8ef0b9" opacity=".05"/>
+  <g transform="translate(84 78)">
+    <rect width="176" height="204" rx="26" fill="#f4fff8"/>
+    <path d="M38 46h100M38 76h76M38 106h100M38 136h62" fill="none" stroke="#174536" stroke-width="10" stroke-linecap="round"/>
+    <path d="M108 151l18 18 35-45" fill="none" stroke="#20bb64" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="314" y="132" fill="#f4fff8" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="62" font-weight="750">MPVault</text>
+  <rect x="316" y="160" width="500" height="5" rx="2.5" fill="url(#accent)"/>
+  <text x="314" y="218" fill="#b9d8ca" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif" font-size="27">把公众号，变成你的本地知识库</text>
+  <text x="314" y="262" fill="#7fa99a" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="17">capture · search · verify · own</text>
+</svg>

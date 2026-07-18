@@ -1,0 +1,4 @@
+interface:
+  display_name: "MPVault 公众号知识库"
+  short_description: "全量保存微信公众号文章，支持离线搜索、断点续传与完整性校验"
+  default_prompt: "Use $mpvault-archive to turn a WeChat public account into a searchable, verified local knowledge vault."

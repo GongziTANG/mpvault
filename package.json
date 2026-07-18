@@ -1,0 +1,38 @@
+{
+  "name": "mpvault",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Turn WeChat public accounts into a searchable, verified local knowledge vault",
+  "license": "MIT",
+  "author": "GongziTANG",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GongziTANG/mpvault.git"
+  },
+  "homepage": "https://github.com/GongziTANG/mpvault#readme",
+  "bugs": {
+    "url": "https://github.com/GongziTANG/mpvault/issues"
+  },
+  "keywords": [
+    "wechat",
+    "wechat-public-account",
+    "markdown",
+    "archive",
+    "exporter"
+  ],
+  "bin": {
+    "mpvault": "./src/cli.mjs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check src/cli.mjs && node --check src/wechat-client.mjs && node --check src/exporter.mjs && node --check src/markdown.mjs && node --check src/library.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "turndown": "^7.2.4"
+  }
+}

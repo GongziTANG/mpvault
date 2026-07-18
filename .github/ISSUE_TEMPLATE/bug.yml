@@ -1,0 +1,32 @@
+name: Bug report
+description: 报告可复现的问题，请勿附带真实会话或私有文章
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: 请先删除 cookies、token、二维码、原始 ID、文章正文和本机绝对路径。
+  - type: textarea
+    id: steps
+    attributes:
+      label: 最小复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果与脱敏日志
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: MPVault 与 Node.js 版本
+    validations:
+      required: true
