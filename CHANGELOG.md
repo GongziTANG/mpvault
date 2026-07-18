@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- 缩短 `$mpvault-archive` 的用户调用文案；完整、搜索与校验由 Skill 自动负责。
+
 ## 0.1.0 - 2026-07-18
 
 - 首次发布 MPVault 品牌与 `mpvault` CLI。
