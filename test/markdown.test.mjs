@@ -83,6 +83,42 @@ test('extractArticleDocument falls back to cgiData when a share page has an empt
   assert.equal(parsed.images.length, 1);
 });
 
+test('renderMarkdown preserves a video-only share with local cover metadata', async () => {
+  const outputDir = await mkdtemp(path.join(os.tmpdir(), 'wechat-md-video-test-'));
+  const videoShare = `<div id="js_content"><div><span></span><script>video bootstrap data</script></div></div><script>
+    window.cgiDataNew = {
+      title: '示例视频',
+      content_noencode: '',
+      item_show_type: '5' * 1,
+      video_page_info: {
+        video_id: 'wxv_test_video',
+        duration: '120' * 1,
+        cover_url: 'https://mmbiz.qpic.cn/video-cover?wx_fmt=jpeg',
+      },
+    };
+  </script>`;
+  const response = new Response(Buffer.from('video-cover'), { headers: { 'content-type': 'image/jpeg' } });
+  const result = await renderMarkdown({
+    rawHtml: videoShare,
+    article: {
+      aid: '3_1',
+      title: '示例视频',
+      create_time: 1704038400,
+      link: 'https://mp.weixin.qq.com/s/video-example',
+      item_show_type: 5,
+    },
+    account: { nickname: '示例公号', original_id: 'gh_testaccount0000', fakeid: 'fake' },
+    articleStem: 'video-one',
+    outputDir,
+    fetchImpl: async () => response.clone(),
+  });
+  assert.match(result.markdown, /微信视频/);
+  assert.match(result.markdown, /wxv\\_test\\_video/);
+  assert.match(result.markdown, /时长：120 秒/);
+  assert.match(result.markdown, /\.\.\/images\/video-one\/001-[a-f0-9]{10}\.jpg/);
+  assert.equal(result.imageFailures.length, 0);
+});
+
 test('inline data images do not count as failed remote assets', async () => {
   const outputDir = await mkdtemp(path.join(os.tmpdir(), 'wechat-md-inline-test-'));
   const inlineHtml = '<div id="js_content"><p>正文</p><img src="data:image/png;base64,AA=="></div>';

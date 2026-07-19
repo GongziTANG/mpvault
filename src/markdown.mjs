@@ -36,9 +36,11 @@ export function extractArticleDocument(rawHtml) {
   const $ = cheerio.load(rawHtml);
   const unavailable = $('.weui-msg .weui-msg__title, .mesg-block').first().text().replace(/\s+/g, ' ').trim();
   let content = $('#js_content').first();
+  const visibleContent = content.clone();
+  visibleContent.find('script, #js_top_ad_area, #js_tags_preview_toast, #content_bottom_area, #js_pc_qr_code').remove();
   const hasRenderedContent =
     content.length > 0 &&
-    (content.text().trim().length > 0 || content.find('img, video, audio, iframe, table').length > 0);
+    (visibleContent.text().trim().length > 0 || visibleContent.find('img, video, audio, iframe, table').length > 0);
   if (!hasRenderedContent) {
     if (unavailable) return { unavailable };
     const cgiData = extractCgiDataFields(rawHtml);
@@ -51,6 +53,16 @@ export function extractArticleDocument(rawHtml) {
         .join('');
       $('body').append(`<div id="__wechat_export_content">${pictureHtml}</div>`);
       content = $('#__wechat_export_content');
+    } else if (cgiData.itemShowType === 5 && cgiData.video.id) {
+      $('body').append('<div id="__wechat_export_content"></div>');
+      content = $('#__wechat_export_content');
+      if (cgiData.video.coverUrl) {
+        const image = $('<img>').attr({ src: cgiData.video.coverUrl, alt: cgiData.title || '视频封面' });
+        content.append($('<p>').append(image));
+      }
+      const metadata = ['微信视频', `视频 ID：${cgiData.video.id}`];
+      if (cgiData.video.durationSeconds) metadata.push(`时长：${cgiData.video.durationSeconds} 秒`);
+      content.append($('<p>').text(metadata.join('；')));
     } else {
       return { error: '页面中未找到微信文章正文 #js_content，且无法解析特殊消息内容' };
     }
@@ -85,9 +97,17 @@ function extractJsDecodeProperty(script, property) {
 }
 
 function extractArrayBlock(script, property) {
+  return extractBlock(script, property, '[', ']');
+}
+
+function extractObjectBlock(script, property) {
+  return extractBlock(script, property, '{', '}');
+}
+
+function extractBlock(script, property, opening, closing) {
   const propertyIndex = script.search(new RegExp(`\\b${property}\\s*:`));
   if (propertyIndex < 0) return '';
-  const start = script.indexOf('[', propertyIndex);
+  const start = script.indexOf(opening, propertyIndex);
   if (start < 0) return '';
   let depth = 0;
   let quote = '';
@@ -104,10 +124,15 @@ function extractArrayBlock(script, property) {
       quote = char;
       continue;
     }
-    if (char === '[') depth++;
-    else if (char === ']' && --depth === 0) return script.slice(start, index + 1);
+    if (char === opening) depth++;
+    else if (char === closing && --depth === 0) return script.slice(start, index + 1);
   }
   return '';
+}
+
+function extractNumericProperty(script, property) {
+  const match = script.match(new RegExp(`(?:^|\\n)\\s*${property}:\\s*['"]?([0-9.]+)`));
+  return match ? Number(match[1]) : 0;
 }
 
 function extractTopLevelObjectProperties(arrayBlock, property) {
@@ -142,14 +167,20 @@ export function extractCgiDataFields(rawHtml) {
     .toArray()
     .map(element => $(element).html() || '')
     .find(content => content.includes('window.cgiDataNew ='));
-  if (!script) return { title: '', content: '', itemShowType: 0, pictureUrls: [] };
+  if (!script) return { title: '', content: '', itemShowType: 0, pictureUrls: [], video: { id: '', coverUrl: '', durationSeconds: 0 } };
   const itemShowType = Number(script.match(/(?:^|\n)\s*item_show_type:\s*'?(\d+)'?\s*\*?/)?.[1] || 0);
   const pictureBlock = extractArrayBlock(script, 'picture_page_info_list');
+  const videoBlock = extractObjectBlock(script, 'video_page_info');
   return {
     title: extractJsDecodeProperty(script, 'title'),
     content: extractJsDecodeProperty(script, 'content_noencode'),
     itemShowType,
     pictureUrls: extractTopLevelObjectProperties(pictureBlock, 'cdn_url'),
+    video: {
+      id: extractJsDecodeProperty(videoBlock, 'video_id'),
+      coverUrl: normalizeUrl(extractJsDecodeProperty(videoBlock, 'cover_url')),
+      durationSeconds: extractNumericProperty(videoBlock, 'duration') || extractNumericProperty(videoBlock, 'vDuration'),
+    },
   };
 }
 
